@@ -1,0 +1,90 @@
+/* Navbar section */
+
+.navbar {
+    padding-bottom: 2.5rem !important;
+    padding-left: 0rem !important;
+}
+
+.navbar-brand {
+    font-family: 'Ubuntu', sans-serif;
+    color: aliceblue !important;
+    font-size: 1.7rem !important;
+    font-weight: bold;
+}
+
+/* Title Section */
+.body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+#title {
+    padding: 3% 15%;
+    background-color: #ff4c68;
+    padding-bottom: 0px;
+}
+
+#title h1 {
+    padding-bottom: 3rem;
+    color: white;
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.title-button {
+    padding: 2rem 3rem;
+    margin: 1rem 1% 1em;
+}
+
+.title-image {
+    height: 90%;
+    width: auto;
+    transform: rotate(25deg);
+    position: relative;
+    left: 20%;
+}
+
+/* Features */
+
+#features {
+    background-color: white;
+    padding: 6%;
+    text-align: center;
+    position: relative;
+}
+
+#features p {
+    color: grey;
+}
+
+.icon {
+    color: #ef8172;
+    margin-bottom: 1rem;
+}
+
+.icon:hover {
+    color: #ff4c68;
+}
+
+/* Press Section */
+
+#press {
+    margin: 2em 0px;
+    padding: 2rem 3rem;
+    background-color: #ff4c68;
+    text-align: center;
+}
+
+#press img {
+    padding: 2em;
+}
+
+/* Pricing Section */
+
+#pricing {
+    text-align: center;
+    padding: 2em;
+}
+
+.card {
+    padding: 5%;
+}
