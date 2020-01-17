@@ -18,9 +18,8 @@
 }
 
 #title {
-    padding: 3% 15%;
+    padding: 3% 15% 7%;
     background-color: #ff4c68;
-    padding-bottom: 0px;
 }
 
 #title h1 {
@@ -36,10 +35,9 @@
 }
 
 .title-image {
-    height: 90%;
-    width: auto;
+    width: 55%;
     transform: rotate(25deg);
-    position: relative;
+    position: absolute;
     left: 20%;
 }
 
@@ -50,6 +48,7 @@
     padding: 6%;
     text-align: center;
     position: relative;
+    /* z-index: 1; */
 }
 
 #features p {
@@ -65,26 +64,56 @@
     color: #ff4c68;
 }
 
+.feature-box {
+    padding: 3% 7% !important;
+}
+
+/* Testimonials Section */
+
+#testimonials {
+    background-color: #ef8172;
+    text-align: center;
+}
+
+.testimonial-text {
+    padding: 2rem !important;
+    color: aliceblue;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.testimonial-image {
+    width: 15%;
+    border-radius: 100%;
+    margin: 10px;
+}
+
+.carousel-item {
+    padding: 3% 8%;
+}
+
 /* Press Section */
 
 #press {
-    margin: 2em 0px;
-    padding: 2rem 3rem;
-    background-color: #ff4c68;
+    background-color: #ef8172;
+    /* margin: 2em 0px; */
+    padding: 1rem 3rem 2rem;
     text-align: center;
 }
 
 #press img {
-    padding: 2em;
+    padding: 3%;
+    width: 20%;
 }
 
 /* Pricing Section */
 
 #pricing {
     text-align: center;
-    padding: 2em;
+    padding: 3em;
 }
 
 .card {
-    padding: 5%;
+    margin: 3rem 3%;
 }
