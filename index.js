@@ -15,6 +15,7 @@ let gamePattern = [];
 let userClickedPattern = [];
 
 function nextSequence() {
+    userClickedPattern = [];
     level += 1;
     $("h1").text(`Level ${level}`);
     let randomNumber = Math.floor(Math.random() * 4);
@@ -29,9 +30,10 @@ let userChosenColor;
 $(".btn").click(function () {
     userChosenColor = $(this).attr("id");
     // $(this).fadeOut(100).fadeIn(100);
-    animatePress(userChosenColor)
+    animatePress(userChosenColor);
     playSound(userChosenColor);
-    userClickedPattern.push(userChosenColor)
+    userClickedPattern.push(userChosenColor);
+    checkAnswer(userClickedPattern.length - 1);
 });
 
 function playSound(name) {
@@ -46,6 +48,30 @@ function animatePress(currentColor) {
     }, 100);
 }
 
-function checkAnswer(currentLevel) {
+// Didn't understand this function at all
 
+function checkAnswer(currentLevel) {
+    if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+        if (userClickedPattern.length === gamePattern.length) {
+            setTimeout(function () {
+                nextSequence();
+            }, 1000);
+        }
+    } else {
+        playSound("wrong");
+        $("body").addClass("game-over");
+        $("#level-title").text("Game Over, Press Any Key to Restart");
+
+        setTimeout(function () {
+            $("body").removeClass("game-over");
+        }, 200);
+
+        startOver();
+    }
+}
+
+function startOver() {
+    level = 0;
+    gamePattern = [];
+    started = false;
 }
