@@ -15,10 +15,21 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
     let crypto = req.body.crypto;
     let currency = req.body.fiat;
+
+    let options = {
+        url: "https://apiv2.bitcoinaverage.com/convert/global",
+        qs: {
+            from: crypto,
+            to: currency,
+            amount: req.body.amount
+        }
+    }
     //Requesting data from BitcoinAverage API fo data through request package
-    request.get(`https://apiv2.bitcoinaverage.com/indices/global/ticker/${crypto}${currency}`, (error, response, body) => {
-        let price = JSON.parse(body).last;
-        res.send(`Price in ${currency}: ${currency}${price}`);
+    request.get(options, (error, response, body) => {
+        let price = JSON.parse(body).price;
+        res.write(`Current time: ${JSON.parse(body).time}\n`)
+        res.write(`Price of ${req.body.amount}${crypto} in ${currency}: ${currency}${price}`)
+        res.send();
     });
 });
 
