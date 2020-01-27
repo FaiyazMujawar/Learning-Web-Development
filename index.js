@@ -6,9 +6,8 @@ const request = require("request");
 
 let PORT = process.env.PORT || 3000;
 
-/* express.static("folderName") conatins static(local files) that shoukd be rendered by 
-the server. Here css/styles.css & images are local files conatined in folder "public". 
-DO NOT include the folder name in raltive path! */
+/* express.static("folderName") conatins static(local files) that should be rendered by 
+the server. DO NOT include the folder name(here, 'public') in relative path! */
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -25,7 +24,7 @@ app.post("/", (req, res) => {
             {
                 email_address: email,
                 status: "subscribed",
-                FNAME: fname,
+                FNAME: fname,   //FNAME, LNAME are kinda variables for storing data, predefined by MailChimp
                 LNAME: lname
             }
         ]
@@ -42,12 +41,20 @@ app.post("/", (req, res) => {
 
     request.post(options, (error, response, body) => {
         if (error) {
-            console.log(error);
+            res.sendFile(`${__dirname}/failure.html`);
         } else {
-            console.log(response.statusCode);
+            if (response.statusCode === 200) {
+                res.sendFile(`${__dirname}/success.html`);
+            } else {
+                res.sendFile(`${__dirname}/failure.html`);
+            }
         }
     })
 
+});
+
+app.post("/failure", (req, res) => {
+    res.redirect("/");
 });
 
 app.listen(PORT, () => {
