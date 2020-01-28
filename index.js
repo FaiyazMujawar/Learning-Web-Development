@@ -8,7 +8,8 @@ app.set('view engine', 'ejs');
 
 let PORT = process.env.PORT || 3000;
 
-let items = [];
+const items = [];
+const workItems = [];
 
 app.get("/", (req, res) => {
     let options = {
@@ -18,12 +19,21 @@ app.get("/", (req, res) => {
     }
     let date = new Date();
     let day = date.toLocaleDateString("en-US", options); // to convert from numeric date format to string
-    res.render("list", { day, items })
+    res.render("list", { title: day, list: items })
 });
 
 app.post("/", (req, res) => {
-    items.push(req.body.item);
-    res.redirect("/");
+    if (req.body.list === "Work") {
+        workItems.push(req.body.item);
+        res.redirect("/work");
+    } else {
+        items.push(req.body.item);
+        res.redirect("/");
+    }
+});
+
+app.get("/work", (req, res) => {
+    res.render("list", { title: "Work", list: workItems })
 });
 
 app.listen(PORT, () => {
