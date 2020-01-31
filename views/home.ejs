@@ -7,5 +7,11 @@
 
 <% posts.forEach(post=>{ %>
 <h3><%= post.title %></h3>
-<p><%= post.body.substring(0,100)+"..." %><a href="/posts/<%= post.title %>"> Read more</a></p>
-<% }) %> <%- include("partials/footer") -%>
+<p><%= post.body.substring(0,100)+"..." %><a href="/posts/<%= post._id %>"> Read more</a></p>
+<% }) %>
+<div>
+    <form action="/compose" method="GET">
+        <button class="btn btn-lg btn-primary newpost" type="submit">Add new post!</button>
+    </form>
+</div>
+<%- include("partials/footer") -%>
