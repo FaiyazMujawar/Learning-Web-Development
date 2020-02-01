@@ -33,7 +33,8 @@ mongoose.set("useCreateIndex", "true");
 const userSchema = new mongoose.Schema({
     email: String,
     password: String,
-    googleId: String
+    googleId: String,
+    secret: String
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -61,8 +62,6 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo" //Google+ is deprecated,so use this endpoint
 },
     function (accessToken, refreshToken, profile, cb) {
-        console.log(profile);
-
         User.findOrCreate({ googleId: profile.id }, function (err, user) {
             return cb(err, user);
         });
@@ -110,7 +109,18 @@ app.post("/login", (req, res) => {
 
 app.get("/secrets", (req, res) => {
     if (req.isAuthenticated()) {
-        res.render("secrets");
+        User.find({
+            secret: { $ne: null }
+        },
+            (error, users) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    if (users) {
+                        res.render("secrets", { users });
+                    }
+                }
+            });
     } else {
         res.redirect("/login");
     }
@@ -132,7 +142,30 @@ app.post("/register", (req, res) => {
 app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
-})
+});
+
+app.get("/submit", (req, res) => {
+    if (req.isAuthenticated()) {
+        res.render("submit");
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.post("/submit", (req, res) => {
+    User.findById({ _id: req.user._id }, (error, user) => {
+        if (error) {
+            console.log(error);
+            res.redirect("/submit");
+        } else {
+            if (user) {
+                user.secret = req.body.secret;
+                user.save();
+                res.redirect("/secrets");
+            }
+        }
+    });
+});
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
